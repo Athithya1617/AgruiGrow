@@ -1,0 +1,146 @@
+.fertilizer-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.25fr;
+  gap: 32px;
+}
+
+.form-group-row {
+  display: flex;
+  gap: 16px;
+}
+
+.flex-1 { flex: 1; }
+.w-30 { width: 30%; }
+
+.form-label {
+  display: block;
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--text-muted);
+  margin-bottom: 6px;
+}
+
+.fertilizer-results-pane {
+  height: 100%;
+}
+
+.empty-results-card {
+  height: 100%;
+  border: 2px dashed var(--border-color);
+  background-color: transparent;
+  color: var(--text-muted);
+}
+
+.results-card {
+  height: 100%;
+}
+
+/* NPK Blocks Row */
+.npk-blocks-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.npk-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 16px;
+  border-radius: var(--radius);
+  border: 1px solid var(--border-color);
+  box-shadow: var(--shadow);
+}
+
+.npk-letter {
+  font-size: 28px;
+  font-weight: 800;
+  margin-bottom: 4px;
+}
+
+.npk-val {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--text-main);
+  margin-bottom: 2px;
+}
+
+.npk-label {
+  font-size: 12px;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+/* Colors matching chemical standards */
+.block-n {
+  background-color: rgba(16, 185, 129, 0.08);
+  border-color: rgba(16, 185, 129, 0.3);
+}
+.block-n .npk-letter { color: var(--accent); }
+
+.block-p {
+  background-color: rgba(249, 115, 22, 0.08);
+  border-color: rgba(249, 115, 22, 0.3);
+}
+.block-p .npk-letter { color: #f97316; }
+
+.block-k {
+  background-color: rgba(168, 85, 247, 0.08);
+  border-color: rgba(168, 85, 247, 0.3);
+}
+.block-k .npk-letter { color: #a855f7; }
+
+/* Organic advise box */
+.organic-advise-box {
+  background-color: var(--accent-bg);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  padding: 20px;
+}
+
+.organic-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--primary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.organic-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.organic-item {
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 8px;
+  font-size: 13.5px;
+}
+
+.organic-item:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.organic-name {
+  color: var(--text-main);
+  font-weight: 500;
+}
+
+.organic-weight {
+  color: var(--primary);
+  font-weight: 700;
+}
+
+@media (max-width: 992px) {
+  .fertilizer-grid {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+}
+
+@media (max-width: 600px) {
+  .npk-blocks-row {
+    grid-template-columns: 1fr;
+  }
+}

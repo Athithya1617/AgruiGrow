@@ -1,0 +1,88 @@
+.star-icon {
+  fill: #eab308;
+  color: #eab308;
+}
+
+.service-item-card {
+  box-shadow: var(--shadow);
+}
+
+.service-name {
+  font-size: 18px;
+  color: var(--text-main);
+}
+
+.service-desc-brief {
+  line-height: 1.5;
+}
+
+/* Mock Map styling */
+.mock-map-canvas {
+  height: 220px;
+  background-color: var(--border-color);
+  background-image: 
+    linear-gradient(rgba(0,0,0,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,0,0,0.03) 1px, transparent 1px);
+  background-size: 20px 20px;
+  border-radius: var(--radius);
+  border: 1px solid var(--border-color);
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+[data-theme="dark"] .mock-map-canvas {
+  background-color: #1a271d;
+  background-image: 
+    linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+}
+
+.mock-map-marker {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  animation: mapPinBounce 1.5s infinite ease-in-out;
+}
+
+@keyframes mapPinBounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+.marker-pin {
+  font-size: 32px;
+}
+
+.marker-label {
+  background-color: var(--card-bg);
+  border: 1px solid var(--border-color);
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 11px;
+  box-shadow: var(--shadow-hover);
+  color: var(--text-main);
+  white-space: nowrap;
+}
+
+.map-compass-hud {
+  position: absolute;
+  bottom: 8px;
+  left: 12px;
+  font-family: var(--mono);
+}
+
+.map-guidelines-box {
+  background-color: var(--input-bg);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  padding: 16px;
+}
+
+.guidelines-title {
+  font-size: 14px;
+  font-weight: 700;
+}

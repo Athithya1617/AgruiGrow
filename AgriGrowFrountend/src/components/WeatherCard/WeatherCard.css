@@ -1,0 +1,136 @@
+.weather-card {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  background: linear-gradient(135deg, var(--card-bg), hsla(var(--primary-raw), 20%, 8%, 0.1));
+}
+
+.weather-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.weather-loc {
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 2px;
+}
+
+.weather-date {
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+/* Weather Icons Animations */
+.weather-icon {
+  stroke-width: 1.5;
+}
+
+.weather-icon.sun {
+  color: #fbbf24;
+  filter: drop-shadow(0 0 8px rgba(251, 191, 36, 0.4));
+  animation: rotateSun 20s linear infinite;
+}
+
+.weather-icon.clouds {
+  color: #9ca3af;
+  animation: floatCloud 4s ease-in-out infinite;
+}
+
+.weather-icon.rain {
+  color: #3b82f6;
+  animation: dripRain 2s ease-in-out infinite;
+}
+
+@keyframes rotateSun {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes floatCloud {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+}
+
+@keyframes dripRain {
+  0%, 100% { transform: translateY(0); opacity: 1; }
+  50% { transform: translateY(3px); opacity: 0.8; }
+}
+
+.weather-main {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+}
+
+.weather-temp {
+  font-size: 48px;
+  font-weight: 700;
+  letter-spacing: -1.5px;
+  color: var(--text-main);
+}
+
+.weather-condition-badge {
+  background: var(--accent-bg);
+  border: 1px solid var(--border-color);
+  color: var(--primary);
+  padding: 4px 12px;
+  border-radius: 9999px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.weather-grid-details {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+  padding: 16px 0;
+  border-top: 1px solid var(--border-color);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.weather-detail-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.weather-detail-item svg {
+  color: var(--primary);
+}
+
+.weather-detail-item .label {
+  display: block;
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.weather-detail-item .val {
+  display: block;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-main);
+}
+
+.weather-advisory {
+  padding: 12px 14px;
+  background-color: var(--accent-bg);
+  border-left: 3px solid var(--accent);
+  border-radius: 4px;
+}
+
+.advisory-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--primary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 4px;
+}
+
+.advisory-text {
+  font-size: 13px;
+  color: var(--text-main);
+  line-height: 1.5;
+}

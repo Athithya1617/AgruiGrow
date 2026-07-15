@@ -1,0 +1,227 @@
+.guide-layout-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.5fr;
+  gap: 32px;
+}
+
+.section-title-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.section-title {
+  font-size: 16px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+}
+
+.article-item-card {
+  margin-bottom: 16px;
+  cursor: pointer;
+}
+
+.article-item-card:hover {
+  border-color: var(--primary-light);
+}
+
+.article-item-card.active {
+  border-color: var(--primary);
+  background-color: var(--accent-bg);
+}
+
+.article-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.article-tag {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--primary);
+  background-color: var(--border-color);
+  padding: 2px 8px;
+  border-radius: 4px;
+}
+
+[data-theme="dark"] .article-tag {
+  background-color: #1a2a1d;
+}
+
+.article-time {
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+.article-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text-main);
+  margin-bottom: 6px;
+}
+
+.article-summary {
+  font-size: 13px;
+  color: var(--text-muted);
+  line-height: 1.4;
+}
+
+/* Full Pane */
+.article-full-card {
+  background: var(--card-bg);
+}
+
+.article-full-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.article-full-title {
+  font-size: 24px;
+  font-weight: 800;
+}
+
+.article-full-summary {
+  font-size: 15px;
+  color: var(--text-muted);
+  line-height: 1.5;
+  font-style: italic;
+}
+
+.article-steps-title {
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--primary);
+}
+
+.article-steps-timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  position: relative;
+  padding-left: 20px;
+}
+
+.article-steps-timeline::before {
+  content: '';
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  bottom: 10px;
+  width: 2px;
+  background-color: var(--border-color);
+}
+
+.article-step-row {
+  display: flex;
+  gap: 16px;
+  position: relative;
+}
+
+.article-step-row .step-badge {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background-color: var(--primary);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: 700;
+  border: 3px solid var(--card-bg);
+  position: absolute;
+  left: -20px;
+  z-index: 1;
+}
+
+.step-text-container {
+  padding-left: 12px;
+}
+
+.step-text {
+  font-size: 14px;
+  color: var(--text-main);
+  line-height: 1.5;
+}
+
+/* Checklist Progress */
+.checklist-progress-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.progress-bar-wrapper {
+  flex: 1;
+  height: 8px;
+  background-color: var(--border-color);
+  border-radius: 9999px;
+  overflow: hidden;
+}
+
+.progress-bar-fill {
+  height: 100%;
+  background-color: var(--accent);
+  border-radius: 9999px;
+  transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.progress-percent-text {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--primary);
+}
+
+.checklist-items-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.checklist-item-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 8px 12px;
+  border-radius: var(--radius-sm);
+  transition: background-color 0.2s ease;
+}
+
+.checklist-item-row:hover {
+  background-color: var(--accent-bg);
+}
+
+.checklist-item-row input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  accent-color: var(--primary);
+  margin-top: 2px;
+}
+
+.checklist-item-row label {
+  font-size: 13.5px;
+  color: var(--text-main);
+  cursor: pointer;
+  line-height: 1.4;
+}
+
+.checklist-item-row input[type="checkbox"]:checked + label {
+  text-decoration: line-through;
+  color: var(--text-muted);
+  opacity: 0.6;
+}
+
+@media (max-width: 992px) {
+  .guide-layout-grid {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+}

@@ -1,0 +1,86 @@
+.contact-layout-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+}
+
+.contact-col {
+  height: 100%;
+}
+
+.submitted-success-card {
+  height: 100%;
+}
+
+.helpline-icon-wrap {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background-color: var(--accent-bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+}
+
+.block {
+  display: block;
+}
+
+.font-bold {
+  font-weight: 700;
+}
+
+/* Accordion FAQs styling */
+.faq-accordions-group {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.faq-acc-item {
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  padding: 14px;
+  cursor: pointer;
+  background-color: var(--input-bg);
+  transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.faq-acc-item:hover {
+  border-color: var(--primary-light);
+  background-color: var(--accent-bg);
+}
+
+.faq-question-txt {
+  font-size: 13.5px;
+  color: var(--text-main);
+  line-height: 1.4;
+}
+
+.acc-arrow {
+  color: var(--text-muted);
+  transition: transform 0.2s ease;
+}
+
+.faq-acc-item.expanded .acc-arrow {
+  transform: rotate(180deg);
+  color: var(--primary);
+}
+
+.faq-acc-body {
+  border-top: 1px dashed var(--border-color);
+  margin-top: 10px;
+  padding-top: 10px;
+}
+
+.faq-answer-txt {
+  line-height: 1.6;
+}
+
+@media (max-width: 992px) {
+  .contact-layout-grid {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+}

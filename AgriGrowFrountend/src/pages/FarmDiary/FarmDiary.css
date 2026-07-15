@@ -1,0 +1,68 @@
+.diary-layout-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.25fr;
+  gap: 32px;
+}
+
+.diary-col {
+  height: 100%;
+}
+
+.list-logs-card {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.filter-select-sm {
+  width: auto;
+  padding: 4px 10px;
+  font-size: 13px;
+}
+
+.diary-logs-scroll-list {
+  max-height: 520px;
+  overflow-y: auto;
+  padding-right: 4px;
+}
+
+.diary-log-item-card {
+  box-shadow: var(--shadow);
+  padding: 18px;
+}
+
+.log-date-text {
+  font-weight: 500;
+}
+
+.log-title {
+  font-size: 15.5px;
+  color: var(--text-main);
+}
+
+.log-desc-notes {
+  line-height: 1.5;
+}
+
+.log-actions {
+  border-top: 1px dashed var(--border-color);
+  padding-top: 8px;
+}
+
+.justify-end {
+  justify-content: flex-end;
+}
+
+/* Primary custom badge */
+.badge-primary-custom {
+  background-color: var(--accent-bg);
+  color: var(--primary);
+  border: 1px solid var(--border-color);
+}
+
+@media (max-width: 992px) {
+  .diary-layout-grid {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+}

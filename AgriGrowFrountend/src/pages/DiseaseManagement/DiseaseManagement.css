@@ -1,0 +1,135 @@
+.disease-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.25fr;
+  gap: 32px;
+}
+
+.disease-col {
+  height: 100%;
+}
+
+.dropzone-box {
+  border: 2px dashed var(--border-color);
+  background-color: var(--input-bg);
+  border-radius: var(--radius);
+  padding: 30px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: border-color 0.2s ease, background-color 0.2s ease;
+  cursor: pointer;
+}
+
+.dropzone-box:hover {
+  border-color: var(--primary);
+  background-color: var(--accent-bg);
+}
+
+.dropzone-text {
+  font-size: 14px;
+  color: var(--text-main);
+  margin-top: 8px;
+}
+
+.dropzone-sub {
+  font-size: 11px;
+  margin-top: 4px;
+}
+
+/* Diagnostic panes */
+.empty-diagnosis-card, .loading-diagnosis-card {
+  height: 100%;
+  border: 2px dashed var(--border-color);
+  background-color: transparent;
+  color: var(--text-muted);
+}
+
+.large-spinner {
+  width: 48px;
+  height: 48px;
+  border-width: 3px;
+}
+
+.diagnosis-result-card {
+  height: 100%;
+}
+
+.healthy-result-box .healthy-icon {
+  font-size: 60px;
+  display: block;
+}
+
+.healthy-title {
+  font-size: 24px;
+  font-weight: 800;
+}
+
+.healthy-desc {
+  font-size: 14.5px;
+  line-height: 1.6;
+}
+
+.infected-header {
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 16px;
+}
+
+.infection-title {
+  font-size: 24px;
+  font-weight: 800;
+}
+
+.pathogen-type {
+  font-size: 13px;
+}
+
+.infection-section {
+  border-bottom: 1px dashed var(--border-color);
+  padding: 16px 0;
+}
+
+.infection-section:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.section-sub-title {
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+.section-text {
+  font-size: 14px;
+  color: var(--text-main);
+  line-height: 1.5;
+}
+
+/* Catalog cards */
+.catalog-disease-item {
+  box-shadow: none;
+}
+
+.item-name {
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.item-text {
+  line-height: 1.5;
+}
+
+.text-sm {
+  font-size: 13px;
+}
+
+@media (max-width: 992px) {
+  .disease-grid {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+}
