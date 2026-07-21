@@ -14,12 +14,30 @@ const DEFAULT_USER = {
   phone: "+91 9751280089"
 };
 
+const getMockUsers = () => {
+  const users = localStorage.getItem('agri_registered_users');
+  if (users) {
+    try {
+      return JSON.parse(users);
+    } catch {
+      return [];
+    }
+  }
+  // Initialize with DEFAULT_USER
+  const initial = [{ ...DEFAULT_USER, password: "password123" }];
+  localStorage.setItem('agri_registered_users', JSON.stringify(initial));
+  return initial;
+};
+
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [isAuthenticated, setIsAuthenticated] = useState(() => {
     return localStorage.getItem('agri_auth') === 'true';
   });
   const [loading, setLoading] = useState(true);
+  const [isOfflineMode, setIsOfflineMode] = useState(() => {
+    return localStorage.getItem('agri_offline_mode') === 'true';
+  });
 
   const [theme, setTheme] = useState(() => {
     const savedTheme = localStorage.getItem('agri_theme');
@@ -40,8 +58,12 @@ export const AuthProvider = ({ children }) => {
         const emailParam = savedUser.email ? `?email=${savedUser.email}` : '';
         const data = await apiClient.get(`/profile${emailParam}`);
         setUser(data);
+        setIsOfflineMode(false);
+        localStorage.setItem('agri_offline_mode', 'false');
       } catch (error) {
         console.warn("Failed to load user profile from backend, using defaults/local storage: ", error);
+        setIsOfflineMode(true);
+        localStorage.setItem('agri_offline_mode', 'true');
         const saved = localStorage.getItem('agri_user');
         if (saved) {
           try {
@@ -96,11 +118,40 @@ export const AuthProvider = ({ children }) => {
       const data = await apiClient.post('/profile/login', { email, password });
       setUser(data);
       setIsAuthenticated(true);
+      setIsOfflineMode(false);
       localStorage.setItem('agri_auth', 'true');
       localStorage.setItem('agri_user', JSON.stringify(data));
+      localStorage.setItem('agri_offline_mode', 'false');
       return true;
     } catch (error) {
       console.error("Login failed: ", error);
+      const isNetworkError = !error.response && (error.code === 'ERR_NETWORK' || error.message === 'Network Error' || error.message?.includes('Network'));
+      
+      if (isNetworkError) {
+        console.warn("Backend offline. Attempting offline fallback login...");
+        const mockUsers = getMockUsers();
+        const foundUser = mockUsers.find(u => u.email === email);
+        if (foundUser) {
+          if (foundUser.password === password) {
+            // Remove password before saving in profile state for safety, but keep it in database
+            const userProfile = { ...foundUser };
+            delete userProfile.password;
+            
+            setUser(userProfile);
+            setIsAuthenticated(true);
+            setIsOfflineMode(true);
+            localStorage.setItem('agri_auth', 'true');
+            localStorage.setItem('agri_user', JSON.stringify(userProfile));
+            localStorage.setItem('agri_offline_mode', 'true');
+            return true;
+          } else {
+            throw new Error("Invalid password (Offline Demo Mode).");
+          }
+        } else {
+          throw new Error("Email not registered locally (Offline Demo Mode). Please Create Account first.");
+        }
+      }
+      
       const errorMsg = getErrorMessage(error, "Invalid credentials.");
       throw new Error(errorMsg, { cause: error });
     }
@@ -111,11 +162,39 @@ export const AuthProvider = ({ children }) => {
       const data = await apiClient.post('/profile/register', userData);
       setUser(data);
       setIsAuthenticated(true);
+      setIsOfflineMode(false);
       localStorage.setItem('agri_auth', 'true');
       localStorage.setItem('agri_user', JSON.stringify(data));
+      localStorage.setItem('agri_offline_mode', 'false');
       return true;
     } catch (error) {
       console.error("Registration failed: ", error);
+      const isNetworkError = !error.response && (error.code === 'ERR_NETWORK' || error.message === 'Network Error' || error.message?.includes('Network'));
+      
+      if (isNetworkError) {
+        console.warn("Backend offline. Attempting offline fallback registration...");
+        const mockUsers = getMockUsers();
+        const emailExists = mockUsers.some(u => u.email === userData.email);
+        if (emailExists) {
+          throw new Error("Email is already registered locally (Offline Demo Mode).");
+        } else {
+          const newUser = { ...userData };
+          mockUsers.push(newUser);
+          localStorage.setItem('agri_registered_users', JSON.stringify(mockUsers));
+          
+          const userProfile = { ...newUser };
+          delete userProfile.password;
+          
+          setUser(userProfile);
+          setIsAuthenticated(true);
+          setIsOfflineMode(true);
+          localStorage.setItem('agri_auth', 'true');
+          localStorage.setItem('agri_user', JSON.stringify(userProfile));
+          localStorage.setItem('agri_offline_mode', 'true');
+          return true;
+        }
+      }
+      
       const errorMsg = getErrorMessage(error, "Registration failed.");
       throw new Error(errorMsg, { cause: error });
     }
@@ -125,6 +204,8 @@ export const AuthProvider = ({ children }) => {
     setIsAuthenticated(false);
     localStorage.removeItem('agri_auth');
     localStorage.removeItem('agri_user');
+    localStorage.setItem('agri_offline_mode', 'false');
+    setIsOfflineMode(false);
     setUser(null);
   };
 
@@ -132,15 +213,33 @@ export const AuthProvider = ({ children }) => {
     if (!user) return;
     const updated = { ...user, ...data };
     setUser(updated);
+    
+    if (isOfflineMode) {
+      const mockUsers = getMockUsers();
+      const userIndex = mockUsers.findIndex(u => u.email === user.email);
+      if (userIndex !== -1) {
+        mockUsers[userIndex] = { ...mockUsers[userIndex], ...data };
+        localStorage.setItem('agri_registered_users', JSON.stringify(mockUsers));
+      }
+      return;
+    }
+    
     try {
       await apiClient.put('/profile', updated);
     } catch (error) {
       console.error("Failed to update profile on backend: ", error);
+      // Also update locally in case it goes offline during session
+      const mockUsers = getMockUsers();
+      const userIndex = mockUsers.findIndex(u => u.email === user.email);
+      if (userIndex !== -1) {
+        mockUsers[userIndex] = { ...mockUsers[userIndex], ...data };
+        localStorage.setItem('agri_registered_users', JSON.stringify(mockUsers));
+      }
     }
   };
 
   return (
-    <AuthContext.Provider value={{ user, isAuthenticated, login, logout, register, theme, toggleTheme, updateUser, loading }}>
+    <AuthContext.Provider value={{ user, isAuthenticated, login, logout, register, theme, toggleTheme, updateUser, loading, isOfflineMode }}>
       {children}
     </AuthContext.Provider>
   );

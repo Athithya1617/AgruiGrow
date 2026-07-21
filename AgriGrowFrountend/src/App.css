@@ -36,3 +36,42 @@
   align-items: center;
   gap: 8px;
 }
+
+/* Offline/Demo mode Warning Banner */
+.offline-banner {
+  background-color: rgba(249, 115, 22, 0.12);
+  border-bottom: 1px solid rgba(249, 115, 22, 0.25);
+  color: #ea580c;
+  text-align: center;
+  padding: 10px 16px;
+  font-size: 14px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  z-index: 100;
+  animation: slideDownBanner 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.offline-banner .banner-icon {
+  color: #f97316;
+  flex-shrink: 0;
+}
+
+[data-theme='dark'] .offline-banner {
+  background-color: rgba(249, 115, 22, 0.18);
+  border-bottom-color: rgba(249, 115, 22, 0.35);
+  color: #ffedd5;
+}
+
+@keyframes slideDownBanner {
+  from {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
